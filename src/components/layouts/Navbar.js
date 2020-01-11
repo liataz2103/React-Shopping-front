@@ -8,16 +8,22 @@ const Navbar = props => {
     
         return (
             
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <h1 style={titleStyle}> {props.title}</h1>
-                <ul>
-                    <li>
-                        <Link to='/'>Home</Link>
-                    </li>
-                    <li>
-                        <Link to='/about'>My Cart</Link>
-                    </li>
-                </ul>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{height: "75px"}} >
+                <div className="container">
+                <Link style ={{color: "#E2CD6D",}}className="navbar-brand" to="/" target="_blank">Vintage Online</Link>
+                    <ul className="navbar-nav mr-auto front-nav" >
+                        <li className="nav-item" >
+                            <Link style ={{color: "#E2CD6D"}} className="nav-link" to='/'>Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link style ={{color: "#E2CD6D"}} className="nav-link" to='/about'>My Cart</Link>
+                        </li>
+                    </ul>
+                    <form class="form-inline" >
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{height: "30px" }}/>
+                        <button class="btn btn-outline my-2 my-sm-0" style={{height: "30px", backgroundColor: "#E2CD6D" }} type="submit">Search</button>
+                    </form>
+                </div>
             </nav>
 
         );

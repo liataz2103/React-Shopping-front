@@ -16,12 +16,12 @@ function ProductItem(props) {
                 src = {props.product.image}    
                 alt = ''
                 className = 'round-img'
-                style = {{width: '100px'}}
+                style = {{width: '100px', height: '150px'}}
             />
             <h4>{props.product.title}</h4> 
-            <p>{props.product.price}</p>
+            <p>$ {props.product.price}</p>
             <div>
-                <button className='btn btn-dark btn-sm-1'>View Cart</button>
+                <button className='btn btn-dark btn-sm-1'>Purchase</button>
             </div>   
         </div>
     )

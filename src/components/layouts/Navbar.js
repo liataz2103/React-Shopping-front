@@ -19,9 +19,9 @@ const Navbar = props => {
                             <Link style ={{color: "#E2CD6D"}} className="nav-link" to='/about'>My Cart</Link>
                         </li>
                     </ul>
-                    <form class="form-inline" >
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{height: "30px" }}/>
-                        <button class="btn btn-outline my-2 my-sm-0" style={{height: "30px", backgroundColor: "#E2CD6D" }} type="submit">Search</button>
+                    <form className="form-inline" >
+                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{height: "30px" }}/>
+                        <button className="btn btn-outline my-2 my-sm-0" style={{height: "30px", backgroundColor: "#E2CD6D" }} type="submit">Search</button>
                     </form>
                 </div>
             </nav>
@@ -35,10 +35,7 @@ Navbar.propTypes = {
     title: PropTypes.string.isRequired
     };
 
-const titleStyle = {
-    fontSize: '20px',
-  
-}
+
     
 
 export default Navbar

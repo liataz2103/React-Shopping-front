@@ -16,7 +16,10 @@ const Navbar = props => {
                             <Link style ={{color: "#E2CD6D"}} className="nav-link" to='/'>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link style ={{color: "#E2CD6D"}} className="nav-link" to='/about'>My Cart</Link>
+                            <Link style ={{color: "#E2CD6D"}} className="nav-link" to='/cart'>My Cart</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link style ={{color: "#E2CD6D"}} className="nav-link" to='/products'>Products</Link>
                         </li>
                     </ul>
                     <form className="form-inline" >

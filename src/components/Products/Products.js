@@ -1,60 +1,65 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
 
 export default class Products extends Component {
-    static propTypes = {
-        products: propTypes.array.isRequired,
-        addToCart: propTypes.func.isRequired
-    }
+    constructor(props) {
+        super(props);
 
-    state = {
-        clickedTitle: "" ,
-        clickedPrice: ""
+        this.state={
+                index: props.index,
+                products: props.products,
+                amount:props.amount,
+                addToCart: props.addToCart
+                
+                
+        }
       }
-
-    addToCartActivator = () => {
-        // this.setState({clickedTitle: product.title, clickedPrice: product.price} )
-
-        // this.props.addToCart(this.state.clickedTitle, this.state.clickedPrice);
-        console.log("clicked");
-        console.log(this.refs.title.value);
       
-    }
+     
 
-    render() {
-        let columns=[];
-        {this.props.products.map((product, i)=>{
-            // push column
-            columns.push(
-                <div className="col-md py-3" key={i}>
+      render() {
+        let col = [];
+        {this.state.products.map((element, i) => {
+            col.push(
+                <div className="col-sm py-3" key={this.state.index}>
                     <div className= "card card-body text-center">
                         <img
-                        src = {product.image}    
+                        src = {element.image}    
                         alt = ''
                         className = 'round-img'
                         style = {{width: '100px', height: '150px'}}
                         />
-                        <h4 ref="title">{product.title}</h4> 
-                        <p>$ {product.price}</p>
+                        <h4>{element.title}</h4> 
+                        <p>$ {element.price}</p>
                         <div>
-                            <button onClick={this.addToCartActivator} className='btn btn-dark btn-sm-1'>Purchase</button>
+                            <Link  to="/cart" onClick={()=>{this.state.addToCart(i)}} className='btn btn-dark btn-sm-1'>Purchase</Link>
                         </div> 
                     </div>
-    			</div>
-    		)
-            
-            // force wrap to next row every 4 columns
-            if ((i+1)%3===0) {columns.push(<div className="w-100" key={null}></div>)}
-        })
+                </div>
+              )
+              // each row has 3 columns inside
+              if((i+1)%3 === 0) {
+                  col.push(<div className="w-100"></div>)
+                }
+          
+       
+        })}
+        // in each column we have the following items
+        
 		return (
-            <div style={{ width: '100%' ,backgroundColor: "#E2CD6D", borderRadius: "15px", padding: "5px", boxSizing: "border-box", fontFamily: "Monoton"}}>
+            <div className="container">
+                <div style={{ width: '100%' ,backgroundColor: "#E2CD6D", borderRadius: "15px", padding: "5px", boxSizing: "border-box", fontFamily: "Monoton"}}>
                 <h1 style={{marginTop: '10px'}}>Our Products</h1>
                 <div className="row justify-content-between" style={{width: '98%', marginLeft: '10px', marginRight: '10px'}}>
-                {columns}
+                    {col}
+                
                 </div>
             </div>
+              
+               </div>
+            
         );
-        }
-    }          
+    }
 }
-

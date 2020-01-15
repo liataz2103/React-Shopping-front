@@ -6,92 +6,127 @@ import './App.css';
 import Navbar from './components/layouts/Navbar';
 import Slider from './components/layouts/Slider.js';
 import Products from './components/Products/Products';
-import About from './components/pages/About';
-import Cart from './components/Products//Cart';
+import Cart from './components/Products/Cart';
 
 
 class App extends Component {
 
   state = {
-
-    cartItems: [{
-      cartTitle: "",
-      cartPrice: ""
-    }],
-  
+    
     products: [
+        {
+          title: "Evening Dress", 
+          image: require( "./images/dress.jpg" ),
+          price: 29,
+          amount: 0,
+          subtotal: 0
+    },
       {
-        title: "Evening Dress", 
-        image: require( "./images/dress.jpg" ),
-        price: "29.99"
-   },
-    {
-        title: "Stripe Top", 
-        image: require( "./images/top.jpg" ),
-        price: "14.99"
-  },
-   {
-        title: "Vintage Jacket", 
-        image: require( "./images/jacket.jpg" ),
-        price: "14.99"
+          title: "Stripe Top", 
+          image: require( "./images/top.jpg" ),
+          price: 15,
+          amount: 0,
+          subtotal: 0
     },
     {
-        title: "Vintage Bag", 
-        image: require( "./images/bag.jpg" ),
-        price: "29.99"
-  },
-  {
-        title: "Button Shirt", 
-        image: require( "./images/button_shirt.jpg" ),
-        price: "35:00"
-  },
-  {
-        title: "Colorfull Dress", 
-        image: require( "./images/colorfull_dress.jpg" ),
-        price: "27.00"
-  },
-    {
-        title: "Classic Dress", 
-        image: require( "./images/dress.jpg" ),
-        price: "35.00"
+          title: "Vintage Jacket", 
+          image: require( "./images/jacket.jpg" ),
+          price: 15,
+          amount: 0,
+          subtotal: 0
+      },
+      {
+          title: "Vintage Bag", 
+          image: require( "./images/bag.jpg" ),
+          price: 29,
+          amount: 0,
+          subtotal: 0
     },
-{
-        title: "Jeans Dress", 
-        image: require( "./images/jeans_dress.jpg" ),
-        price: "35.00"
-},
-{
-        title: "Designed neckless", 
-        image: require( "./images/neckless.jpg" ),
-        price: "25.00"
-},
-{
-        title: "Vintage shirt", 
-        image: require( "./images/shirt.jpg" ),
-        price: "15.00"
-},
-{
-        title: "Goldi Shoes", 
-        image: require( "./images/shoes.jpg" ),
-        price: "29.99"
-},
-{
-        title: "Blue Skirt", 
-        image: require( "./images/skirt.jpg" ),
-        price: "14.99"
-}
-
-],
-
+    {
+          title: "Button Shirt", 
+          image: require( "./images/button_shirt.jpg" ),
+          price: 35,
+          amount: 0,
+          subtotal: 0
+    },
+    {
+          title: "Colorfull Dress", 
+          image: require( "./images/colorfull_dress.jpg" ),
+          price: 27,
+          amount: 0,
+          subtotal: 0
+    },
+      {
+          title: "Classic Dress", 
+          image: require( "./images/dress.jpg" ),
+          price: 35,
+          amount: 0,
+          subtotal: 0
+      },
+  {
+          title: "Jeans Dress", 
+          image: require( "./images/jeans_dress.jpg" ),
+          price: 35,
+          amount: 0,
+          subtotal: 0
+  },
+  
+  {
+          title: "Vintage shirt", 
+          image: require( "./images/shirt.jpg" ),
+          price: 15,
+          amount: 0,
+          subtotal: 0
+  },
+  {
+          title: "Goldi Shoes", 
+          image: require( "./images/shoes.jpg" ),
+          price: 30,
+          amount: 0,
+          subtotal: 0
+  },
+  {
+          title: "Blue Skirt", 
+          image: require( "./images/skirt.jpg" ),
+          price: 14,
+          amount: 0,
+          subtotal: 0
   }
 
+  ],
+  total: 0
+
+    };
 
 
- addToCart = (t, p ) =>{
-   this.setState({cartItems: [{cartTitle:t, cartPrice:p}]});
-  
- }
- 
+    // / Add to cart function (when purchased button is clicked)
+    addToCart = (index) => {
+      // create temp array that increnment amounts each time a buttn is clicked , and update subtotal and total
+      let purcahsedQty = [...this.state.products];
+      purcahsedQty[index].amount++;
+      purcahsedQty[index].subtotal += purcahsedQty[index].price;
+      this.setState({total: this.state.total + purcahsedQty[index].price})
+      this.setState({products: [...purcahsedQty]});   
+     
+    }
+
+    // checout - resset cart items
+    checkout = () => {
+      // set total back to zero
+      this.setState({total: 0});
+      let newArrToDisplay = [...this.state.products].map((product)=>{
+        product.amount = 0;
+        product.subtotal=0;
+        return(product)
+      });
+      this.setState({products: [...newArrToDisplay]})
+      if(this.state.total>0){
+        alert("Thank you for shopping with us!")
+      }
+      
+
+    }
+
   render() {
     return (
       <Router>    
@@ -106,22 +141,22 @@ class App extends Component {
             )} />
             <Route exact path='/products' render={props =>(
               <Fragment>
-                <Products products={this.state.products} addToCart={this.addToCart} />
-              </Fragment>
+                <Products products= {this.state.products} addToCart = {this.addToCart} /> 
+               </Fragment>
+           
             )} />
+             <Route exact path="/cart" render={props =>(
+        <Fragment>
+          <Cart products={this.state.products} total={this.state.total} checkout={this.checkout} />
+          </Fragment>
+          
+          
+    
 
-            <Route exact path="/cart" render={props =>(
-              <Fragment>
-              <Cart cartItems={this.state.cartItems} />
-              </Fragment>
+        
 
-            )} />
+      )} /> 
             
-            <Route exact path="/about" component={About} />
-            {/* <Route exact path="/user/:login" render={props =>(
-              <User {...props} getUser={this.getUser} user={this.state.user} loading={this.state.loading} />
-
-            )} /> */}
           </Switch>
         </div>
       </div>
